@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="3660223701">
+    <data-source source="LOCAL" name="HSQLDB - badassbuildingsdb memory" uuid="02b5c737-c746-437f-94f6-37ea4109eef1">
+      <driver-ref>hsqldb.in-memory</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.hsqldb.jdbc.JDBCDriver</jdbc-driver>
+      <jdbc-url>jdbc:hsqldb:mem:badassbuildingsdb</jdbc-url>
+      <schema-pattern>PUBLIC.*</schema-pattern>
+      <default-schemas>PUBLIC.PUBLIC</default-schemas>
+      <libraries>
+        <library>
+          <url>file://$MAVEN_REPOSITORY$/org/hsqldb/hsqldb/2.2.9/hsqldb-2.2.9.jar</url>
+        </library>
+      </libraries>
+    </data-source>
+    <data-source source="LOCAL" name="defaultPersistenceUnit" uuid="1d57c956-8a3b-445f-8774-084e325ca7ae">
+      <driver-ref>hsqldb.remote</driver-ref>
+      <jdbc-driver>org.hsqldb.jdbcDriver</jdbc-driver>
+      <jdbc-url>jdbc:hsqldb:mem:badassbuildingsdb</jdbc-url>
+      <user-name>sa</user-name>
+      <libraries>
+        <library>
+          <url>file://C:\Users\jnguyen\workspace\ArtifactRepository\org\hsqldb\hsqldb\2.2.9\hsqldb-2.2.9.jar</url>
+        </library>
+      </libraries>
+    </data-source>
+  </component>
+</project>
+
