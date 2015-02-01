@@ -146,7 +146,7 @@ public class BuildingController {
             factory = Persistence.createEntityManagerFactory("defaultPersistenceUnit");
             EntityManager manager = factory.createEntityManager();
             manager.getTransaction().begin();*/
-            Building b = new Building("Empire State Building", "350 5th Avenue, New York, NY 10118", 102, 2768591);
+            /*Building b = new Building("Empire State Building", "350 5th Avenue, New York, NY 10118", 102, 2768591);
             Building b2 = new Building("Sears Tower", "233 South Wacker Drive, Chicago, IL 60606", 108, 26000000);
             Building b3 = new Building("The Austonian", "233 South Wacker Drive, Chicago, IL 60606", 56, 590870);
 
@@ -154,6 +154,7 @@ public class BuildingController {
             buildingRepository.save(b);
             buildingRepository.save(b2);
             buildingRepository.save(b3);
+            buildingRepository.flush();*/
             //floorRepository.flush();
             //buildingRepository.
         } catch (Exception e ) {
