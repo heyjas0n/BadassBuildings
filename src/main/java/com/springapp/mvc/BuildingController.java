@@ -2,6 +2,7 @@ package com.springapp.mvc;
 
 import com.springapp.bo.Building;
 
+import com.springapp.bo.Floor;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -9,15 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping(value = "/")
@@ -28,32 +27,38 @@ public class BuildingController {
     private FloorRepository floorRepository;
 
     @RequestMapping(value = "/listBuildings", method = RequestMethod.GET)
-    public ModelAndView listBuildings() {
+    public ModelAndView listBuildings(@ModelAttribute("building") Building building, ModelMap result) {
         //model.addAttribute("building", new Building());
-        //model.addAttribute("buildings", buildingRepository.findAll());
         Map<String, List<Building>> modelData = new HashMap<String, List<Building>>();
         modelData.put("buildings", buildingRepository.findAll());
         return new ModelAndView("buildingList", modelData); //sends you to buildingList.jsp
     }
 
-    @RequestMapping(params = "buildingAction=createForm", method = RequestMethod.POST)
-    public ModelAndView showBuildingForm() {
-        Building b = new Building();
-        b.setName("Enter Building Name Here");
-        ModelMap modelData = new ModelMap();
-        modelData.addAttribute(b);
-        return new ModelAndView("buildingReg", modelData);
+    @RequestMapping(value= "/buildingSuccessfullyAdded")
+    public ModelAndView addBuilding(@ModelAttribute("building") Building building) {
+        //result.addAttribute(building);
+        if( building != null ) {
+            int numFloors = building.getNumFloors();
+            ArrayList<Floor> floors = new ArrayList<Floor>();
+            for(int i = 0; i < numFloors; i++){
+                    floors.add(new Floor( building, "default floor name"));
+            }
+            building.setFloors(floors);
+//            floorRepository.save(floors);
+
+            buildingRepository.save(building);
+
+        }
+        System.out.println("Trying to add a building");
+        Map<String, List<Building>> modelData = new HashMap<String, List<Building>>();
+        modelData.put("buildings", buildingRepository.findAll());
+        return new ModelAndView("buildingList", modelData);
     }
 
-    @RequestMapping(params = "/addBuilding", method = RequestMethod.POST)
-    public String addBuilding(@ModelAttribute("building") Building building, Model model) {
-        if( building != null ) {
-            buildingRepository.save(building);
-        }
-        model.addAttribute("buiding", building);
-        model.addAttribute("buildings", buildingRepository.findAll());
-
-        return "buildingList";
+    @RequestMapping(value = "/addBuilding", method = RequestMethod.GET)
+    public String showBuildingForm(@ModelAttribute("building") Building building, BindingResult result) {
+        buildingRepository.save(building);
+        return "buildingReg";
     }
 
     @RequestMapping("/")
@@ -61,20 +66,6 @@ public class BuildingController {
         Date date = new Date();
         return new ModelAndView("redirect:/listBuildings");
     }
-
-    /*@RequestMapping("/")
-    public String sendBuildingForm(ModelMap model) {
-        Building building = new Building();
-        model.addAttribute("building", new Building());
-        return "buildingReg";
-    }*/
-
-    /*@RequestMapping("buildingRegistration")
-    public String sendBuildingForm(ModelMap model) {
-        Building building = new Building();
-        model.addAttribute("building", new Building());
-        return "buildingReg";
-    }*/
 
     @RequestMapping("/delete/{buildingId}")
     public String deleteBuilding(@PathVariable("buildingId") Long buildingId) {
@@ -95,9 +86,15 @@ public class BuildingController {
     @RequestMapping(value = "/editBuilding/{buildingId}/editFloors", method=RequestMethod.POST)
     public ModelAndView editFloor(@PathVariable("buildingId") Long buildingId) {
         Building building = buildingRepository.findOne(buildingId);
-        //Floor floor = building.getFloor(floorNumber);
         ModelMap modelData = new ModelMap();
+
         modelData.addAttribute(building);
+
+        try{
+            modelData.addAttribute(building.getFloors());
+        }catch (Exception e){
+            System.out.println("Could not get building.getFloors()!!!");
+        }
         //modelData.addAttribute(floor);
         return new ModelAndView("editFloor", modelData);
     }
@@ -132,7 +129,6 @@ public class BuildingController {
             buildingJSON.put("id", building.getId());
             buildingJSON.put("name", building.getName());
             buildingJSON.put("address", building.getAddress());
-            buildingJSON.put("email", building.getFloors());
             buildingArray.put(buildingJSON);
         }
         return buildingArray.toString();
@@ -142,21 +138,6 @@ public class BuildingController {
     public void init() {
         try{
 
-            /*EntityManagerFactory factory ;
-            factory = Persistence.createEntityManagerFactory("defaultPersistenceUnit");
-            EntityManager manager = factory.createEntityManager();
-            manager.getTransaction().begin();*/
-            /*Building b = new Building("Empire State Building", "350 5th Avenue, New York, NY 10118", 102, 2768591);
-            Building b2 = new Building("Sears Tower", "233 South Wacker Drive, Chicago, IL 60606", 108, 26000000);
-            Building b3 = new Building("The Austonian", "233 South Wacker Drive, Chicago, IL 60606", 56, 590870);
-
-
-            buildingRepository.save(b);
-            buildingRepository.save(b2);
-            buildingRepository.save(b3);
-            buildingRepository.flush();*/
-            //floorRepository.flush();
-            //buildingRepository.
         } catch (Exception e ) {
             System.out.println(e.getMessage());
         }

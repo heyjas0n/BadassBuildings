@@ -28,7 +28,7 @@
             <c:if test="${message != null}">
                 <div class="alert alert-danger">${message}</div>
             </c:if>
-            <form:form method="post" modelAttribute= "building" action="${pageContext.request.contextPath}/saveBuilding" class="form-horizontal">
+            <form:form method="post" modelAttribute= "building" action="${contextPath}/saveBuilding" class="form-horizontal">
 
             <div class="control-group">
                 <form:label cssClass="control-label" path="name">Building Id:</form:label>
@@ -50,9 +50,9 @@
                 </div>
             </div>
             <div class="control-group">
-                <form:label cssClass="control-label" path="floors">Floors:</form:label>
+                <form:label cssClass="control-label" path="numFloors">Floors:</form:label>
                 <div class="controls">
-                    <form:input path="floors"/>
+                    <form:input path="numFloors"/>
                 </div>
             </div>
             <div class="control-group">
@@ -70,6 +70,6 @@
         </div>
     </div>
 </div>
-<form modelAttribute= "${building}" action="${pageContext.request.contextPath}/editBuilding/${building.id}/editFloors" method="post"><input type="submit" class="btn btn-mini" value="Edit Floors"/></form>
+<form modelAttribute= "${building}" action="${contextPath}/editBuilding/${building.id}/editFloors" method="post"><input type="submit" class="btn btn-mini" value="Edit Floors"/></form>
 </body>
 </html>

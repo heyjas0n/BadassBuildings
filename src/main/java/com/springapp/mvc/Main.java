@@ -23,7 +23,7 @@ public class Main {
             building.setName("Beethoven");
             ArrayList<Floor> floors = new ArrayList<Floor>();
             floors.add(new Floor(building, "2"));
-            building.setFloors(3);
+            //building.setFloors(3);
 
             buildingDAO.save(building);
 
@@ -31,7 +31,7 @@ public class Main {
             Building persistedBuilding = buildingDAO.find(1);
 
             System.out.println("Name: " + persistedBuilding.getName());
-            System.out.println("Weight: " + persistedBuilding.getFloors());
+            //System.out.println("Weight: " + persistedBuilding.getNumFloors());
         } catch (Exception e) {
             System.out.println("Ops, something happen: " + e.getMessage());
             e.printStackTrace();

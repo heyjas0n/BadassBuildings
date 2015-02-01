@@ -43,11 +43,11 @@
                             <td>${building.name}</td>
                             <td>${building.address}</td>
                             <td>
-                                    ${building.floors}
+                                ${building.numFloors}
                             </td>
                             <td>${building.area}</td>
                             <td>
-                                <form modelAttribute= "${building}" action="${pageContext.request.contextPath}/editBuilding/${building.id}" method="post"><input type="submit" class="btn btn-mini" value="Edit"/></form>
+                                <form modelAttribute= "${building}" action="${contextPath}/editBuilding/${building.id}" method="post"><input type="submit" class="btn btn-mini" value="Edit"/></form>
                             </td>
                             <td>
                                 <form action="delete/${building.id}" method="post"><input type="submit" class="btn btn-danger btn-mini" value="Delete"/></form>
@@ -60,5 +60,6 @@
         </div>
     </div>
 </div>
+<a href="${contextPath}/addBuilding">Add a new Building</a>
 </body>
 </html>

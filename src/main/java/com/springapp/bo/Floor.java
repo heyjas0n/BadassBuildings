@@ -32,11 +32,13 @@ public class Floor {
     private int numRooms;
 
     public Floor() {
+        numRooms =1;
     }
 
     public Floor(Building building, String number) {
         this.building = building;
         this.number = number;
+        numRooms = 1;
     }
     public Building getBuilding() {
         return building;

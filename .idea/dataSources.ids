@@ -15,10 +15,19 @@
       <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
       <column name="address" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <column name="area" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="floors" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="numFloors" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="FK3B69EC1489E6334" table="building_floor" schema="" catalog="badassbuildings" columns="Building_id"/>
       <exported-key name="FK40D33EC489E6334" table="floor" schema="" catalog="badassbuildings" columns="building_id"/>
+    </table>
+    <table name="building_floor" schema="" catalog="badassbuildings" type="TABLE">
+      <column name="Building_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="floors_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <foreign-key name="FK3B69EC12DBC0EC5" columns="floors_id" ref-table="floor" ref-schema="" ref-catalog="badassbuildings" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK3B69EC1489E6334" columns="Building_id" ref-table="building" ref-schema="" ref-catalog="badassbuildings" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="FK3B69EC12DBC0EC5" unique="false" columns="floors_id"/>
+      <index name="FK3B69EC1489E6334" unique="false" columns="Building_id"/>
     </table>
     <table name="customer" schema="" catalog="badassbuildings" type="TABLE">
       <column name="CUST_ID" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
@@ -33,6 +42,7 @@
       <column name="building_id" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="FK40D33EC489E6334" columns="building_id" ref-table="building" ref-schema="" ref-catalog="badassbuildings" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FK3B69EC12DBC0EC5" table="building_floor" schema="" catalog="badassbuildings" columns="floors_id"/>
       <exported-key name="FK2678DBC535A80" table="room" schema="" catalog="badassbuildings" columns="floor_id"/>
       <index name="FK40D33EC489E6334" unique="false" columns="building_id"/>
     </table>

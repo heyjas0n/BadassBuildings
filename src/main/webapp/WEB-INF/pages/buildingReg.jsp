@@ -24,9 +24,9 @@
 <div class="container">
     <div class="row">
         <div class="span8 offset2">
-            <h1>Buildings</h1>
+            <h1>Add a New Building</h1>
 
-            <form:form method="post" modelAttribute= "building" action="${pageContext.request.contextPath}/?buildingAction=addBuilding" class="form-horizontal">
+            <form:form method="post" modelAttribute="building" action="buildingSuccessfullyAdded" class="form-horizontal">
             <div class="control-group">
                 <form:label cssClass="control-label" path="name">Building Name:</form:label>
                 <div class="controls">
@@ -40,9 +40,9 @@
                 </div>
             </div>
             <div class="control-group">
-                <form:label cssClass="control-label" path="floors">Floors:</form:label>
+                <form:label cssClass="control-label" path="numFloors">Floors:</form:label>
                 <div class="controls">
-                    <form:input path="floors"/>
+                    <form:input path="numFloors"/>
                 </div>
             </div>
             <div class="control-group">

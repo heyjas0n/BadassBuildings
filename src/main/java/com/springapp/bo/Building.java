@@ -26,17 +26,29 @@ public class Building {
     @Column
     private Integer area;
 
-    public void setFloors(int floors) {
-        this.floors = floors;
+    public Integer getNumFloors() {
+        return numFloors;
     }
 
-    public int getFloors() {
+    public void setNumFloors(Integer numFloors) {
+        this.numFloors = numFloors;
+    }
+
+    @Column
+    private Integer numFloors;
+
+
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    private List<Floor> floors;
+
+    public List<Floor> getFloors() {
         return floors;
     }
 
-    //@OneToMany(mappedBy="buildingId")
-    //private List<Floor> floors;
-    int floors;
+    public void setFloors(List<Floor> floors) {
+        this.floors = floors;
+    }
 
     public Building(){
 
@@ -44,19 +56,14 @@ public class Building {
     public Building(String name, String address, int numFloors, int area) throws Exception{
         this.name = name;
         this.address = address;
-        /*for(int i = 0; i < numFloors; i++){
-            floors.add(new Floor(1));
-        }*/
-        floors= numFloors;
+        this.numFloors = numFloors;
+        for(int i = 0; i < 10; i++){
+            floors.add(new Floor());
+        }
         this.area = area;
     }
 
-    /*public Floor getFloor(int floorNumber) {
-        if(floorNumber > 1 && floorNumber-1 <floors.size()){
-                return floors.get(floorNumber-1);
-        }
-        return null;
-    }*/
+
     public Long getId() {
         return id;
     }
@@ -80,14 +87,6 @@ public class Building {
     public void setAddress(String lastName) {
         this.address = lastName;
     }
-
-    /*public void setFloors(Integer numFloors) throws Exception {
-        List<Floor> defaultFloors = new ArrayList<Floor>();
-        for(int i = 0; i < numFloors; i++){
-            defaultFloors.add(new Floor(1));
-        }
-        this.floors = defaultFloors;
-    }*/
 
     public Integer getArea() {
         return area;
